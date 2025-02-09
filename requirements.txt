@@ -8,4 +8,7 @@ pandas
 streamlit
 validators
 requests
+sentence-transformers
+google-genai
+google-generativeai
 

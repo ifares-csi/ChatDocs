@@ -1,72 +1,36 @@
-# WebChat: Chat with Web Pages using DeepSeek R1
+# RAG-Chat with Gemini 2
 
-## Overview
-WebChat is a Streamlit-based web application that allows users to interact with web pages by summarizing their content and answering user queries using the Deepseek R1 language model. The app extracts textual content from a given URL, processes it into vector embeddings using FAISS, and retrieves relevant responses based on the user prompt.
-
+This project demonstrates a **Retrieval-Augmented Generation (RAG)** chat application using:
+- **Google Generative AI** (Gemini model via `google.generativeai`)
+- **LangChain** (HuggingFaceEmbeddings, FAISS vector store, ConversationalRetrievalChain)
+- **Streamlit** for a ChatGPT-like user interface
 
 ## Features
-- Extracts content from any webpage URL
-- Summarizes webpage content using Deepseek R1 (1.5B model)
-- Stores vector embeddings with FAISS for efficient retrieval
-- Provides a structured reasoning process with a final answer
-- User-friendly UI built with Streamlit
+- **File Upload**: Upload a local `.txt` file to form a document knowledge base.
+- **Vector Store**: Build a FAISS index from the uploaded documents using HuggingFace embeddings.
+- **Conversational Retrieval**: Query the knowledge base via a conversational chain, augmented by Google’s LLM.
+- **Chat Interface**: Uses Streamlit’s `st.chat_input` and `st.chat_message` for a ChatGPT-like experience.
 
-## Installation
-
-### Prerequisites
-- Python 3.12
-- deepSeek R1
-- Streamlit
-- LangChain
-- FAISS
-- Ollama
-- Requests
-- Dotenv
-
-### Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ifares-csi/WebChat.git
-   cd WebChat
-   ```
-
-2. Install dependencies:
+## Getting Started
+1. **Install dependencies** (sample):
    ```bash
    pip install -r requirements.txt
    ```
+   Make sure you have valid keys for Google Generative AI in your environment.
 
-3. Set up environment variables:
-   Create a `.env` file and add:
-   ```bash
-   LANGSMITH_API_KEY=your_langsmith_api_key
-   LANGSMITH_PROJECT=your_project_name
-   ```
-
-4. Run the application:
+2. **Run the app**:
    ```bash
    streamlit run app.py
    ```
 
-## Usage
-1. Enter a valid webpage URL.
-2. Provide a question or request a summary.
-3. Click the **Submit** button.
-4. The application will extract content, process it, and generate a response.
+3. **Usage**:
+   - Open the Streamlit app in your browser.
+   - Click **"Upload a text file"** on the sidebar and select a `.txt` file.
+   - Type your question in the **chat box** at the bottom and press **Enter**.
+   - The app will generate a response using the uploaded text as context.
 
-## Technologies Used
-- **DeepSeek R1 (1.5B model)**: for response generation and reasoning
-- **Streamlit**: UI framework
-- **Ollama**: LLM model provider
-- **LangChain**: AI framework for document retrieval
-- **FAISS**: Vector database for efficient storage and retrieval
-- **Requests**: Webpage content extraction
-- **Dotenv**: Environment variable management
-
-## License
-This project is licensed under the MIT License.
-
-## Author
-**El-Fares**
-
-## Contributions
-Contributions are welcome! Feel free to fork the repository and submit pull requests.
+## How It Works
+1. **TextLoader** loads your `.txt` file into documents.
+2. **HuggingFaceEmbeddings** converts the documents into vector representations.
+3. **FAISS** stores these vectors for fast similarity search.
+4. **ConversationalRetrievalChain** retrieves context-relevant text for each query, passing it to Google’s LLM (Gemini) for a final answer.
